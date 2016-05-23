@@ -6,9 +6,19 @@ import java.util.List;
 /**
  * Created by jnkmhbl on 16/5/18.
  */
+
+/**
+ * 一个sql语句可以拆成两个部分  insert / update /select   part1  from ....  where part2
+ */
 public class SqlParam {
+
+
+
+    //参见  SqlParamCode
     private int type ;
+    //part 2
     private WhereCondition condition;
+    //part1  前端提供一个在updateSql可以选择里面所有的属性，选择后传给我index List 从0----size -1
     private List<Integer> preIndex ;
     private String id ;
 

@@ -7,6 +7,8 @@ import java.util.List;
  * Created by tianrui03 on 16/5/16.
  */
 public class WhereCondition {
+    //前端展示一个列表，展示所有属性列表，每个属性后面可以选择 ">" "<" "=" "in" ，如果不是in则这个index放在judgeColumn里面并将对应的符号放在operators里面，否则放在inList里面。
+
     private List<Integer> judgeColumnIndexes ;
     private List<String>  judgeOperators;
     private List<Integer> inListColumnIndexes ;

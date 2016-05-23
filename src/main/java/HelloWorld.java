@@ -18,24 +18,15 @@ public class HelloWorld {
     private static ClassEntity classEntity ;
     private static TableEntity tableEntity ;
     private static String packagePrefix;
-    private static List<String> resultId = new ArrayList<String>();
+    private static String resultId ;
     private List<SqlClassMapping> poClasses = new ArrayList<SqlClassMapping>() ;
     @RequestMapping("/")
     String home(){
         return "hello";
     }
 
-    @RequestMapping("/createPO")
-    Object createPO(@RequestParam(value ="idList")String idList,
-                    @RequestParam(value = "className")String className,
-                     @RequestParam(value = "resultID")String resultID){
-        List<Integer>  poClass  = JSON.parseArray(idList,Integer.class);
-        SqlClassMapping mapping = new SqlClassMapping();
-        mapping.setClassIdList(poClass); mapping.setClassName(className);mapping.setResultID(resultID);
-        poClasses.add(mapping);
-        return "";
-    }
 
+    //创建成功后会返回一个属性列表，作为后续选择的一个列表，所有的筛选都在这个基础上
     @RequestMapping("/uploadCreateTable")
     Object parseTable(@RequestParam(value = "tablesql") String tableSql){
         SqlResolve resolve = new SqlResolve();
@@ -61,11 +52,14 @@ public class HelloWorld {
     }
 
 
+
+//重点看SqlParam类
     @RequestMapping("/createMapper")
     Object createMapper(@RequestParam(value = "location")String location,
                         @RequestParam(value = "resultId")String resultMapId,
                          @RequestParam(value = "sqllist")String params,
-                         @RequestParam(value="mapper")String fileName)throws  Exception{
+                         @RequestParam(value="mapper")String fileName
+                    )throws  Exception{
         List<SqlParam> paramList = JSON.parseArray(params, SqlParam.class);
         IbatiesMapperCreator creator = new IbatiesMapperCreator(classEntity,tableEntity);
         creator.startBuild(resultMapId, location + classEntity.getClassName());
